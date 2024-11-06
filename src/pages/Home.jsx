@@ -5,6 +5,7 @@ import UserHomeSector from "../components/UserHomeSector";
 
 function Home() {
   const [sector, setSector] = useState("");
+  const [employees, setEmployees] = useState([]);
   const header = () => {
     if (sector === "admin") {
       return "Home - Admin Sector";
@@ -20,8 +21,10 @@ function Home() {
       <h1>{header()}</h1>
       <NavBarUserAdmin setSector={setSector} />
       <div>
-        {sector === "admin" && <AdminHomeSector />}
-        {sector === "user" && <UserHomeSector />}
+      <div>
+        {sector === "admin" && (<AdminHomeSector employees={employees} setEmployees={setEmployees} /> )}
+        {sector === "user" && <UserHomeSector employees={employees} />}
+      </div>
       </div>
     </div>
   );
