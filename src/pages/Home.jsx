@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import NavBarUserAdmin from "../components/NavBarUserAdmin";
 import AdminHomeSector from "../components/AdminHomeSector";
 import UserHomeSector from "../components/UserHomeSector";
@@ -20,7 +20,6 @@ function Home() {
     }
     setIsInitialLoad(false); // Mark initial load as complete
   }, []);
- 
 
   useEffect(() => {
     if (!isInitialLoad) {
@@ -37,19 +36,23 @@ function Home() {
     }
     return "React - Assessment";
   };
+
   return (
-    <div>
-      <h1>Generation Thailand</h1>
-      <h1>{header()}</h1>
-      <NavBarUserAdmin setSector={setSector} />
-      <div>
-      <div>
-        {sector === "admin" && (<AdminHomeSector employees={employees} setEmployees={setEmployees} /> )}
-        {sector === "user" && <UserHomeSector employees={employees} />}
-      </div>
+    <div className="min-h-screen bg-gray-50 flex flex-col items-center p-4">
+      <h1 className="text-3xl font-bold mb-4 text-center">Generation Thailand</h1>
+      <h1 className="text-xl font-semibold mb-6 text-center">{header()}</h1>
+      <NavBarUserAdmin setSector={setSector} className="mb-6" />
+      <div className="w-full max-w-4xl mx-auto bg-white shadow-md rounded-lg p-4">
+        <div className="mt-4">
+          {sector === "admin" && (
+            <AdminHomeSector employees={employees} setEmployees={setEmployees} />
+          )}
+          {sector === "user" && <UserHomeSector employees={employees} />}
+        </div>
       </div>
     </div>
   );
 }
 
 export default Home;
+
