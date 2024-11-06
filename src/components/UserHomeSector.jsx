@@ -16,7 +16,7 @@ function UserHomeSector({ employees }) {
           {employees.map((employee, index) => (
             <tr key={index} className="hover:bg-gray-100 transition duration-200">
               <td className="border px-4 py-2">{employee.name}</td>
-              <td className="border px-4 py-2">{employee.lastName}</td>
+              <td className="border px-4 py-2">{employee.lastname}</td>
               <td className="border px-4 py-2">{employee.position}</td>
             </tr>
           ))}
