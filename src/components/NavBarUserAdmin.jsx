@@ -1,8 +1,15 @@
 import React from 'react'
 
-function NavBarUserAdmin() {
+function NavBarUserAdmin({setSector}) {
   return (
-    <div>NavBarUserAdmin</div>
+    <nav>
+    <div>
+    <div>
+      <button onClick={()=> setSector('user')}>User Home Sector</button>
+      <button onClick={()=> setSector('admin')}>Admin Home Sector</button>
+    </div>
+    </div>
+   </nav>
   )
 }
 
