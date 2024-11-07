@@ -66,15 +66,24 @@ import UserHomeSector from "../components/UserHomeSector";
 function Home() {
   const [sector, setSector] = useState("");
   const [employees, setEmployees] = useState([]);
+  const [loading, setLoading] = useState(true); // Added loading state
 
   const API_URL = "https://jsd5-mock-backend.onrender.com/members"; // Use your API URL
 
   const fetchEmployees = async () => {
+    setLoading(true); // Start loading
     try {
       const response = await axios.get(API_URL);
       setEmployees(response.data);
+      localStorage.setItem("employees", JSON.stringify(response.data)); // Cache data
     } catch (error) {
       console.error("Error fetching employees from API:", error);
+      const cachedEmployees = localStorage.getItem("employees");
+      if (cachedEmployees) {
+        setEmployees(JSON.parse(cachedEmployees));
+      }
+    } finally {
+      setLoading(false); // End loading
     }
   };
 
@@ -125,23 +134,28 @@ function Home() {
       <h1 className="text-xl font-semibold mb-6 text-center">{header()}</h1>
       <NavBarUserAdmin setSector={setSector} className="mb-6" />
       <div className="w-full max-w-4xl mx-auto bg-white shadow-md rounded-lg p-4">
-        <div className="mt-4">
-          {sector === "admin" && (
-            <AdminHomeSector
-              employees={employees}
-              addEmployee={addEmployee}
-              deleteEmployee={deleteEmployee}
-              updateEmployee={updateEmployee}
-            />
-          )}
-          {sector === "user" && <UserHomeSector employees={employees} />}
-        </div>
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <div className="mt-4">
+            {sector === "admin" && (
+              <AdminHomeSector
+                employees={employees}
+                addEmployee={addEmployee}
+                deleteEmployee={deleteEmployee}
+                updateEmployee={updateEmployee}
+              />
+            )}
+            {sector === "user" && <UserHomeSector employees={employees} />}
+          </div>
+        )}
       </div>
     </div>
   );
 }
 
 export default Home;
+
 
 
 
